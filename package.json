@@ -1,0 +1,20 @@
+{
+  "name": "filemanager-nodejs",
+  "version": "1.0.0",
+  "description": "NodeJS Filemanager student project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "npm run start -- --username=your_username"
+  },
+  "keywords": [
+    "filemanager",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andron13/filemanager-nodejs.git"
+  },
+  "author": "andron13",
+  "license": "ISC"
+}
