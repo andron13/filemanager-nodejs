@@ -1,6 +1,6 @@
 # NodeJS File Manager
 
-This is a student project developed in NodeJS as a file manager. It was created as part of the curriculum for the RS School.
+This is a [student project](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md) developed in NodeJS as a file manager. It was created as part of the curriculum for the [RS School](https://rs.school/).
 
 ## Features
 

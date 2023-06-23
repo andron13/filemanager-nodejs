@@ -1,8 +1,9 @@
 {
   "name": "filemanager-nodejs",
   "version": "1.0.0",
-  "description": "NodeJS Filemanager student project",
+  "description": "NodeJS File manager student project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "npm run start -- --username=your_username"

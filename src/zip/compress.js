@@ -3,20 +3,19 @@ import zlib from "zlib";
 import {join} from "path";
 import {fileURLToPath} from "url";
 
-const inputFile = "fileToCompress.txt";
-const outputFile = "archive.gz";
-const folder = "files";
-const baseDir = join(fileURLToPath(import.meta.url), "..", folder);
-const inputFilePath = join(baseDir, inputFile);
-const outputFilePath = join(baseDir, outputFile);
-const errorText = "Compression failed:";
-const successText = `File "${inputFile}" compressed to "${outputFile}"`;
+import {errorMessage} from "../constant/AppVariables.js";
 
 
-const compress = () => {
+export const compress = (inputFile, outputFile) => {
+  const baseDir = join(fileURLToPath(import.meta.url), "..");
+  const successText = `File "${inputFile}" compressed to "${outputFile}"`;
+
+  const inputFilePath = join(baseDir, inputFile);
+  const outputFilePath = join(baseDir, outputFile);
+
   const readStream = fs.createReadStream(inputFilePath);
   const writeStream = fs.createWriteStream(outputFilePath);
-  const gzipStream = zlib.createGzip();
+  const gzipStream = zlib.createBrotliCompress();
 
   readStream.pipe(gzipStream).pipe(writeStream);
 
@@ -25,8 +24,12 @@ const compress = () => {
   });
 
   writeStream.on("error", (error) => {
-    console.error(errorText, error);
+    console.error(errorMessage, error);
   });
 };
 
-compress();
+
+// const inputFile = "fileToCompress.txt";
+// const outputFile = "archive.gz";
+// compress(inputFile, outputFile);
+
