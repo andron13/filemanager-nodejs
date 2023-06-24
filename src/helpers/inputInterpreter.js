@@ -1,12 +1,16 @@
+import {cwd} from "node:process";
+
 import {MESSAGES} from "./textConstant.js";
 import {list} from "../handlers/fs/list.js";
 import {compress} from "../handlers/zip/compress.js";
-import {cwd} from "node:process";
+import {create} from "../handlers/fs/create.js";
 
 
 export const inputChoice = async (inputLine, userPath) => {
   let str = inputLine.trim().toLowerCase();
   let firstWord = str.split(" ")[0];
+  let secondWord = str.split(" ")[1];
+  let thirdWord = str.split(" ")[2];
   // console.log(firstWord)
   switch (firstWord) {
     case ".exit": {
@@ -16,6 +20,11 @@ export const inputChoice = async (inputLine, userPath) => {
     }
     case "ls": {
       await list();
+      break;
+    }
+    case "add": {
+      console.log('######### "add" ##########');
+      await create(secondWord);
       break;
     }
     case "up": {
@@ -30,10 +39,7 @@ export const inputChoice = async (inputLine, userPath) => {
       console.log('######### "cat" ##########');
       break;
     }
-    case "add": {
-      console.log('######### "add" ##########');
-      break;
-    }
+
     case "rn": {
       console.log('######### "rn" ##########');
       break;

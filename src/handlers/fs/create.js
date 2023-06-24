@@ -1,24 +1,17 @@
-import * as fs from "fs";
-import {Buffer} from "buffer";
-import {fileURLToPath} from "url";
+import fs from "fs";
 import {join} from "path";
+import {cwd} from "node:process";
 
-const successText = "I am fresh and young";
-const data = new Uint8Array(Buffer.from(successText));
-const errorText = "FS operation failed"
-const file = "fresh.txt";
-const folder = "files";
-const pathToFile =
-  join(fileURLToPath(import.meta.url), "..", folder, file);
+import {MESSAGES} from "../../helpers/textConstant.js";
 
-const create = async () => {
+const defaultCurrentFolderPath = cwd();
+
+export const create = async (file, inputFolder = defaultCurrentFolderPath, data = "") => {
+  let pathToFile = join(inputFolder, file);
+
   try {
-    await fs.promises.writeFile(pathToFile, data,
-      {flag: "wx",}
-    );
+    await fs.promises.writeFile(pathToFile, data, {flag: "wx",});
   } catch (err) {
-    throw new Error(errorText);
+    throw new Error(MESSAGES.error);
   }
 };
-
-await create();
