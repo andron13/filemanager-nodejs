@@ -2,14 +2,14 @@ import fs from "fs";
 import zlib from "zlib";
 import {join} from "path";
 import {fileURLToPath} from "url";
+import { cwd } from 'node:process';
 
 import {MESSAGES} from "../../helpers/textConstant.js";
 
-
-
 export const compress = (inputFile, outputFile) => {
+  let dirCWD = cwd();
+  console.log("###cwd - in compress", dirCWD)
   const baseDir = join(fileURLToPath(import.meta.url), "..");
-  const successText = `File "${inputFile}" compressed to "${outputFile}"`;
 
   const inputFilePath = join(baseDir, inputFile);
   const outputFilePath = join(baseDir, outputFile);
@@ -25,7 +25,7 @@ export const compress = (inputFile, outputFile) => {
   });
 
   writeStream.on("error", (error) => {
-    console.error(errorMessage, error);
+    console.error(MESSAGES.error, error);
   });
 };
 
@@ -34,3 +34,21 @@ export const compress = (inputFile, outputFile) => {
 // const outputFile = "archive.gz";
 // compress(inputFile, outputFile);
 
+
+
+// export const compress = (inputPath, outputPath) => {
+//   const successText = `File "${inputPath}" compressed to "${outputPath}"`;
+//   const readStream = fs.createReadStream(inputPath);
+//   const writeStream = fs.createWriteStream(outputPath);
+//   const gzipStream = zlib.createBrotliCompress();
+//
+//   readStream.pipe(gzipStream).pipe(writeStream);
+//
+//   writeStream.on("finish", () => {
+//     console.log(successText);
+//   });
+//
+//   writeStream.on("error", (error) => {
+//     console.error(MESSAGES.error, error);
+//   });
+// };
