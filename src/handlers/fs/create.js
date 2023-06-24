@@ -7,6 +7,7 @@ import {MESSAGES} from "../../helpers/textConstant.js";
 const defaultCurrentFolderPath = cwd();
 
 export const create = async (file, inputFolder = defaultCurrentFolderPath, data = "") => {
+
   let pathToFile = join(inputFolder, file);
 
   try {

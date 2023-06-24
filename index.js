@@ -2,7 +2,6 @@ import * as os from "os";
 import * as readline from "readline";
 import { cwd } from 'node:process';
 
-
 import {MESSAGES} from "./src/helpers/textConstant.js";
 import {inputChoice} from "./src/helpers/inputInterpreter.js";
 
@@ -38,5 +37,3 @@ readlineInterface.on('line', async (line) => {
   await inputChoice(line, process.cwd())
   readlineInterface.output.write(MESSAGES.currentPath(cwd()));
 });
-
-

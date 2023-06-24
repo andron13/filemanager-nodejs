@@ -1,22 +1,22 @@
 import fs from 'fs';
 import {join} from "path";
-import {fileURLToPath} from "url";
+import {cwd} from "node:process";
 
-const errorText = "\nReadable Stream Read Error";
-const file = "fileToRead.txt";
-const folder = "files";
-const filePath = join(fileURLToPath(import.meta.url), "..", folder, file);
+import {MESSAGES} from "../../helpers/textConstant.js";
 
-const read = async () => {
-  const readableStream = fs.createReadStream(filePath);
+const defaultCurrentFolderPath = cwd();
+
+export const read = async (file, inputFolder = defaultCurrentFolderPath) => {
+
+  let pathToFile = join(inputFolder, file);
+
+  const readableStream = fs.createReadStream(pathToFile);
 
   readableStream.on("data", (chunk) => {
     process.stdout.write(chunk);
   });
 
   readableStream.on("error", (err) => {
-    console.error(errorText, err.message);
+    console.error(MESSAGES.error, err.message);
   });
 };
-
-await read();
