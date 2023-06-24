@@ -1,20 +1,20 @@
 import fs from "fs";
-import {fileURLToPath} from "url";
+import {cwd} from "node:process";
 import {join} from "path";
 
-const errorText = "FS operation failed";
-const file = "fileToRemove.txt";
-const folder = "files";
-const pathToFile =
-  join(fileURLToPath(import.meta.url), "..", folder, file);
+import {MESSAGES} from "../../helpers/textConstant.js";
+import {normalizePath} from "../../helpers/helpfullFunction.js";
 
-const remove = async () => {
+const defaultCurrentFolderPath = cwd();
+
+export const remove = async (file, inputFolder = defaultCurrentFolderPath) => {
+
+  let pathToFile = join(normalizePath(inputFolder), normalizePath(file));
+
   try {
     await fs.promises.access(pathToFile, fs.constants.F_OK);
     await fs.promises.unlink(pathToFile);
   } catch (err) {
-    throw new Error(errorText);
+    throw new Error(MESSAGES.error);
   }
 };
-
-await remove();

@@ -1,8 +1,7 @@
 import {cwd} from "node:process";
 
 import {MESSAGES} from "./textConstant.js";
-import {create, read, list, compress,} from "../handlers/modules.js";
-import {normalizePath} from "./helpfullFunction.js";
+import {create, read, remove, list, compress,} from "../handlers/modules.js";
 
 
 export const inputChoice = async (inputLine, userPath) => {
@@ -21,11 +20,23 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "add": {
-      await create(normalizePath(secondWord));
+      await create(secondWord);
       break;
     }
     case "cat": {
-      await read(normalizePath(secondWord))
+      await read(secondWord)
+      break;
+    }
+    case "rm": {
+      await remove(secondWord);
+      break;
+    }
+    case "cp": {
+      console.log('######### "cp" ##########');
+      break;
+    }
+    case "mv": {
+      console.log('######### move ##########');
       break;
     }
     case "up": {
@@ -40,18 +51,8 @@ export const inputChoice = async (inputLine, userPath) => {
       console.log('######### "rn" ##########');
       break;
     }
-    case "cp": {
-      console.log('######### "cp" ##########');
-      break;
-    }
-    case "mv": {
-      console.log('######### "mv" ##########');
-      break;
-    }
-    case "rm": {
-      console.log('######### "rm" ##########');
-      break;
-    }
+
+
     case "hash":
       console.log('######### "hash"  ##########');
       break;
