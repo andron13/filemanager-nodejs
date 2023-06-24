@@ -1,12 +1,20 @@
 import * as os from "os";
 import * as readline from "readline";
+import { cwd } from 'node:process';
 
-import {MESSAGES} from "./src/constant/AppVariables.js";
+let baseDir = cwd();
+let homeDir = os.homedir();
+// console.log(`index Current directory: baseDir`, baseDir);
+// console.log(`index Current directory: homeDir`,homeDir );
 
-const rl = readline.createInterface({
+import {MESSAGES} from "./src/helpers/textConstant.js";
+import {inputChoice} from "./src/helpers/choice.js";
+
+
+const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  // terminal: false
+  terminal: false,
 });
 
 /* Username start*/
@@ -17,11 +25,10 @@ process.argv.forEach((item) => {
   }
 });
 /* Username end*/
-
-rl.input.setEncoding("utf-8");
-process.chdir(os.homedir());
-rl.output.write(MESSAGES.welcome(username));
-rl.output.write(MESSAGES.currentPath);
+readlineInterface.input.setEncoding("utf-8");
+// process.chdir(baseDir);
+readlineInterface.output.write(MESSAGES.welcome(username));
+readlineInterface.output.write(MESSAGES.currentPath(process.cwd()));
 
 process.on('exit', () => {
   process.stdout.write(MESSAGES.goodbye(username));
@@ -30,21 +37,8 @@ process.on('SIGINT', function () {
   process.exit(0);
 });
 
-rl.on('line', async (line) => {
-  let str = line.trim();
-  console.log(str)
-  switch (str){
-    case ".exit": {
-      console.log('######### .exit ##########');
-      process.exit(0);
-      break;
-    }
-    default: {
-      console.log('######### default ##########');
-      process.stdout.write(MESSAGES.invalid)
-      break;
-    }
-  }
+readlineInterface.on('line', async (line) => {
+  await inputChoice(line, process.cwd())
 });
 
 

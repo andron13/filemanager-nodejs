@@ -3,7 +3,8 @@ import zlib from "zlib";
 import {join} from "path";
 import {fileURLToPath} from "url";
 
-import {errorMessage} from "../constant/AppVariables.js";
+import {MESSAGES} from "../../helpers/textConstant.js";
+
 
 
 export const compress = (inputFile, outputFile) => {

@@ -3,7 +3,7 @@ import zlib from "zlib";
 import {join} from "path";
 import {fileURLToPath} from "url";
 
-import {errorMessage} from "../constant/AppVariables.js";
+import {MESSAGES} from "../../helpers/textConstant.js";
 
 export const decompress = async (inputFile, outputFile) => {
   const baseDir = join(fileURLToPath(import.meta.url), "..");
@@ -25,12 +25,11 @@ export const decompress = async (inputFile, outputFile) => {
     });
 
     writeStream.on("error", (error) => {
-      console.error(errorMessage, error);
+      console.error(MESSAGES.error, error);
       reject(error);
     });
   });
 };
-
 
 
 /*const inputFile = "archive.gz";
