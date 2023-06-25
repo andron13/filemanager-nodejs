@@ -1,14 +1,20 @@
 import {create, read, remove, list, compress, copyFile, moveFile, renameFile, goUp, cd, calculateHash, decompress}
   from "../handlers/modules.js";
+import {getEOL, getCPUsInfo, getUserName, getHomeDir, getArchitecture} from "../osCommands/osModules.js";
 
 import {MESSAGES} from "./textConstant.js";
 
-export const inputChoice = async (inputLine, userPath) => {
+/**
+ * Handler for input command choice.
+ * @param {string} inputLine - Input line with the command.
+ */
+export const inputChoice = async (inputLine) => {
+
   let str = inputLine.trim();
   let firstWord = str.split(" ")[0].toLowerCase();
   let secondWord = str.split(" ")[1];
   let thirdWord = str.split(" ")[2];
-  // console.log(firstWord)
+
   switch (firstWord) {
     case ".exit": {
       process.exit();
@@ -61,9 +67,7 @@ export const inputChoice = async (inputLine, userPath) => {
       await compress(secondWord, thirdWord);
       break;
     }
-
     case "os":
-      console.log('######### "os MAIN"  ##########');
       osSwitch(str)
       break;
     default: {
@@ -74,33 +78,34 @@ export const inputChoice = async (inputLine, userPath) => {
   }
 }
 
-
+/**
+ * Operating System command handler.
+ * @param {string} input - Input string with the command.
+ */
 const osSwitch = (input) => {
   let parameter = input
     .split(" ")
     .filter(item => item.includes("--")
-    )[0];
+    )[0].slice(2).toLowerCase();
   switch (parameter) {
-    case "--eol":
-      console.log('######### "os --eol"  ##########');
+    case "eol":
+      getEOL();
       break;
-    case "--cpus":
-      console.log('######### "os --cpus"  ##########');
+    case "cpus":
+      getCPUsInfo();
       break;
-    case "--homedir":
-      console.log('######### "os --homedir"  ##########');
+    case "homedir":
+      getHomeDir();
       break;
-    case "--username":
-      console.log('#########  "os --username" ##########');
+    case "username":
+      getUserName();
       break;
-    case "--architecture":
-      console.log('######### "os --architecture"  ##########');
+    case "architecture":
+      getArchitecture();
       break;
     default: {
-      console.log('######### default ##########');
       process.stdout.write(MESSAGES.invalid)
       break;
     }
   }
-
 }
