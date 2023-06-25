@@ -1,8 +1,8 @@
-import {cwd} from "node:process";
 
+
+import {create, read, remove, list, compress, copyFile, moveFile}
+  from "../handlers/modules.js";
 import {MESSAGES} from "./textConstant.js";
-import {create, read, remove, list, compress, copyFile,} from "../handlers/modules.js";
-
 
 export const inputChoice = async (inputLine, userPath) => {
   let str = inputLine.trim();
@@ -36,7 +36,7 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "mv": {
-      console.log('######### move ##########');
+      await moveFile(secondWord, thirdWord)
       break;
     }
     case "up": {

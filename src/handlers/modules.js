@@ -4,5 +4,6 @@ import {remove} from "./fs/delete.js";
 import {read} from "./streams/read.js";
 import {copyFile} from "./streams/copy.js";
 import {compress} from "./zip/compress.js";
+import {moveFile} from "./streams/move.js";
 
-export {create, read, remove, copyFile,  list, compress};
+export {create, read, remove, copyFile, list, moveFile, compress};

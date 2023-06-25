@@ -15,8 +15,7 @@ import {normalizePath} from "../../helpers/helpfullFunction.js";
  * @param {string} pathToNewDirectory - The path to the new directory where the file should be copied.
  */
 export const copyFile = (pathToFile, pathToNewDirectory) => {
-  console.log(pathToFile)
-  console.log(pathToNewDirectory)
+
   let normalizeSource = normalizePath(pathToFile);
   let normalizeTarget=normalizePath(pathToNewDirectory);
 
