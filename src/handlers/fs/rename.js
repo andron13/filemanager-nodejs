@@ -19,7 +19,7 @@ export const renameFile = async (pathToFile, newFilename) => {
   await fileExists(normalizeSource);
   const newFileExists = await fileExists(new_path);
   if (newFileExists) {
-    throw new Error(MESSAGES.invalid);
+    console.error(MESSAGES.invalid);
   }
   try {
     await fs.promises.rename(normalizeSource, new_path);

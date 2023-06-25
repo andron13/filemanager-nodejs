@@ -27,6 +27,6 @@ export const list = async (folderPath) => {
 
     console.table(fileList);
   } catch (err) {
-    throw new Error(MESSAGES.error);
+    console.error(MESSAGES.error);
   }
 };

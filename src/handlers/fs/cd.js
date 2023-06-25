@@ -14,13 +14,13 @@ export const cd = async (pathToDirectory) => {
   const targetPath = resolve(currentPath, normalizePath(pathToDirectory));
 
   if (!pathExists(targetPath)) {
-    throw new Error(MESSAGES.invalid);
+    console.error(MESSAGES.invalid);
   }
 
   try {
     await chdir(targetPath);
   } catch (err) {
-    throw new Error(MESSAGES.error);
+    console.error(MESSAGES.error);
   }
 };
 

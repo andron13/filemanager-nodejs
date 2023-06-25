@@ -1,3 +1,0 @@
-
-
-cp /Users/andrej_podlubnyj/Projects/2023/NODEJS-2023/filemanager-nodejs/readme.md /Users/andrej_podlubnyj/Projects/2023/NODEJS-2023/filemanager-nodejs/src/handlers/streams

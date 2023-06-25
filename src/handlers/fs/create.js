@@ -19,15 +19,15 @@ export const create = async (file, inputFolder = defaultCurrentFolderPath, data 
 
   try {
     if (await fileExists(pathToFile)){
-      throw new Error(MESSAGES.invalid);
+      console.error(MESSAGES.invalid);
     }
   } catch (err) {
-    throw new Error(MESSAGES.invalid);
+    console.error(MESSAGES.invalid);
   }
 
   try {
     await fs.promises.writeFile(pathToFile, data, {flag: "wx",});
   } catch (err) {
-    throw new Error(MESSAGES.error);
+    console.error(MESSAGES.error);
   }
 };

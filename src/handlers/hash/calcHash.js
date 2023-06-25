@@ -1,21 +1,28 @@
 import fs from "fs";
 import crypto from "crypto";
-import {fileURLToPath} from "url";
-import {join} from "path";
 
-const errorText = "The SHA256 hash calculating operation failed.";
-const file = "fileToCalculateHashFor.txt";
-const folder = "files";
-const filePath = join(fileURLToPath(import.meta.url), "..", folder, file);
+import {MESSAGES} from "../../helpers/textConstant.js";
+import {fileExists, normalizePath} from "../../helpers/helpfullFunction.js";
 
-const calculateHash = async () => {
+/**
+ * Calculates the hash for the specified file and prints it to the console.
+ * @param {string} pathToFile - The path to the file.
+ */
+export const calculateHash = async (pathToFile) => {
+  const algorithm = 'sha256';
+  const hash = crypto.createHash(algorithm);
+  let normalPath = normalizePath(pathToFile);
+
+  if(!await fileExists(normalPath)) {
+    console.error(MESSAGES.invalid);
+    return
+  }
+
   try {
-    const data = await fs.promises.readFile(filePath);
-    const hash = crypto.createHash("sha256").update(data).digest("hex");
-    console.log(hash);
+    const data = await fs.promises.readFile(normalPath);
+    const output = hash.update(data).digest("hex");
+    console.log(output);
   } catch (err) {
-    console.error(errorText, err);
+    console.error(MESSAGES.error);
   }
 };
-
-await calculateHash();

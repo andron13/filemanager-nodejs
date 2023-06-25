@@ -16,6 +16,6 @@ export const goUp = () => {
   try {
     process.chdir(parentDirectory);
   } catch (err) {
-    throw new Error(MESSAGES.error);
+    console.error(MESSAGES.error);
   }
 };

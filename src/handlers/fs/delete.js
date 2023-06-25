@@ -20,6 +20,6 @@ export const remove = async (file, inputFolder = defaultCurrentFolderPath) => {
     await fileExists(pathToFile);
     await fs.promises.unlink(pathToFile);
   } catch (err) {
-    throw new Error(MESSAGES.error);
+    console.error(MESSAGES.error);
   }
 };

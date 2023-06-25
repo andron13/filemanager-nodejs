@@ -28,27 +28,3 @@ export const compress = (inputFile, outputFile) => {
     console.error(MESSAGES.error, error);
   });
 };
-
-
-// const inputFile = "fileToCompress.txt";
-// const outputFile = "archive.gz";
-// compress(inputFile, outputFile);
-
-
-
-// export const compress = (inputPath, outputPath) => {
-//   const successText = `File "${inputPath}" compressed to "${outputPath}"`;
-//   const readStream = fs.createReadStream(inputPath);
-//   const writeStream = fs.createWriteStream(outputPath);
-//   const gzipStream = zlib.createBrotliCompress();
-//
-//   readStream.pipe(gzipStream).pipe(writeStream);
-//
-//   writeStream.on("finish", () => {
-//     console.log(successText);
-//   });
-//
-//   writeStream.on("error", (error) => {
-//     console.error(MESSAGES.error, error);
-//   });
-// };

@@ -1,7 +1,7 @@
 import fs from "fs";
 import {normalize} from "path";
 
-export let normalizePath = (inputPath) => normalize(inputPath);
+export let normalizePath = (inputPath) => normalize(inputPath.trim());
 
 export const fileExists = async (pathToFile) => {
   try {
