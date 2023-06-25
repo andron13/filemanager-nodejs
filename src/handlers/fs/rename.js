@@ -1,42 +1,29 @@
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { join } from "path";
+import fs from 'fs';
+import path from 'path';
 
-const errorText = "FS operation failed";
-const folder = "files";
-const oldFileName = "wrongFilename.txt";
-const newFileName = "properFilename.md";
-const pathToFolder = join(fileURLToPath(import.meta.url), "..", folder);
-const pathToOldFile = join(pathToFolder, oldFileName);
-const pathToNewFile = join(pathToFolder, newFileName);
+import {MESSAGES} from '../../helpers/textConstant.js';
+import {fileExists, normalizePath} from "../../helpers/helpfullFunction.js";
 
-const rename = async () => {
+/**
+ * Renames a file while preserving its content.
+ * @param {string} pathToFile - The path to the file to be renamed.
+ * @param {string} newFilename - The new filename.
+ */
+export const renameFile = async (pathToFile, newFilename) => {
 
-  let oldFileExists = true;
-  let newFileExists = true;
+  let normalizeSource = normalizePath(pathToFile);
+  let normalizeNewFilename = normalizePath(newFilename);
+  const file_directory = path.dirname(normalizeSource);
+  const new_path = path.join(file_directory, normalizeNewFilename);
 
+  await fileExists(normalizeSource);
+  const newFileExists = await fileExists(new_path);
+  if (newFileExists) {
+    throw new Error(MESSAGES.invalid);
+  }
   try {
-    try {
-      await fs.promises.access(pathToOldFile, fs.constants.F_OK);
-    } catch {
-      oldFileExists = false;
-    }
-
-    try {
-      await fs.promises.access(pathToNewFile, fs.constants.F_OK);
-    } catch {
-      newFileExists = false;
-    }
-
-    if (!oldFileExists || newFileExists){
-      return Promise.reject(Error(errorText));
-    }
-
-    await fs.promises.rename(pathToOldFile, pathToNewFile);
-
+    await fs.promises.rename(normalizeSource, new_path);
   } catch (err) {
-    throw new Error(errorText);
+    console.error(MESSAGES.error, err);
   }
 };
-
-await rename();

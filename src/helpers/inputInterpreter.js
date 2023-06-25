@@ -1,6 +1,4 @@
-
-
-import {create, read, remove, list, compress, copyFile, moveFile}
+import {create, read, remove, list, compress, copyFile, moveFile, renameFile}
   from "../handlers/modules.js";
 import {MESSAGES} from "./textConstant.js";
 
@@ -32,11 +30,15 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "cp": {
-      await copyFile(secondWord, thirdWord)
+      await copyFile(secondWord, thirdWord);
       break;
     }
     case "mv": {
-      await moveFile(secondWord, thirdWord)
+      await moveFile(secondWord, thirdWord);
+      break;
+    }
+    case "rn": {
+      await renameFile(secondWord, thirdWord);
       break;
     }
     case "up": {
@@ -47,11 +49,6 @@ export const inputChoice = async (inputLine, userPath) => {
       console.log('######### cd ##########');
       break;
     }
-    case "rn": {
-      console.log('######### "rn" ##########');
-      break;
-    }
-
 
     case "hash":
       console.log('######### "hash"  ##########');
@@ -71,7 +68,7 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     default: {
       console.log('######### default ##########');
-      process.stdout.write(MESSAGES.invalid)
+      process.stdout.write(MESSAGES.invalid);
       break;
     }
   }
