@@ -1,4 +1,4 @@
-import {create, read, remove, list, compress, copyFile, moveFile, renameFile, goUp, cd, calculateHash}
+import {create, read, remove, list, compress, copyFile, moveFile, renameFile, goUp, cd, calculateHash, decompress}
   from "../handlers/modules.js";
 
 import {MESSAGES} from "./textConstant.js";
@@ -54,12 +54,11 @@ export const inputChoice = async (inputLine, userPath) => {
       await calculateHash(secondWord);
       break;
     case  "decompress": {
-      console.log('######### decompress ##########');
+      decompress(secondWord, thirdWord);
       break;
     }
     case "compress": {
-      console.log('######### compress ##########');
-      await compress();
+      await compress(secondWord, thirdWord);
       break;
     }
 

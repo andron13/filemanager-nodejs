@@ -1,38 +1,30 @@
-import fs from "fs";
-import zlib from "zlib";
-import {join} from "path";
-import {fileURLToPath} from "url";
+import fs from 'fs';
+import zlib from 'zlib';
+import { resolve } from 'path';
 
-import {MESSAGES} from "../../helpers/textConstant.js";
+import {MESSAGES} from '../../helpers/textConstant.js';
+import {normalizePath} from "../../helpers/helpfullFunction.js";
 
-export const decompress = async (inputFile, outputFile) => {
-  const baseDir = join(fileURLToPath(import.meta.url), "..");
-  const successText = `Decompression successful. File "${inputFile}" decompressed to "${outputFile}".`;
+/**
+ * Decompresses a file using the Brotli algorithm and streams API.
+ * @param {string} path_to_file - The path to the input compressed file.
+ * @param {string} path_to_destination - The path to the output destination for the decompressed file.
+ */
+export const decompress = (path_to_file, path_to_destination) => {
+  const inputPath = resolve(normalizePath(path_to_file));
+  const outputPath = resolve(normalizePath(path_to_destination));
 
-  const inputFilePath = join(baseDir, inputFile);
-  const outputFilePath = join(baseDir, outputFile);
+  const readStream = fs.createReadStream(inputPath);
+  const writeStream = fs.createWriteStream(outputPath);
+  const brotliStream = zlib.createBrotliDecompress();
 
-  const readStream = fs.createReadStream(inputFilePath);
-  const writeStream = fs.createWriteStream(outputFilePath);
-  const unzipStream = zlib.createBrotliDecompress();
+  readStream.pipe(brotliStream).pipe(writeStream);
 
-  readStream.pipe(unzipStream).pipe(writeStream);
+  writeStream.on('finish', () => {
+    console.log('File decompressed successfully.');
+  });
 
-  return new Promise((resolve, reject) => {
-    writeStream.on("finish", () => {
-      console.log(successText);
-      resolve();
-    });
-
-    writeStream.on("error", (error) => {
-      console.error(MESSAGES.error, error);
-      reject(error);
-    });
+  writeStream.on('error', (error) => {
+    console.error(MESSAGES.error, error);
   });
 };
-
-
-/*const inputFile = "archive.gz";
-const outputFile = "fileToCompress.txt";
-await decompress(inputFile, outputFile);
-*/
