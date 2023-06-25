@@ -1,7 +1,7 @@
 import {cwd} from "node:process";
 
 import {MESSAGES} from "./textConstant.js";
-import {create, read, remove, list, compress,} from "../handlers/modules.js";
+import {create, read, remove, list, compress, copyFile,} from "../handlers/modules.js";
 
 
 export const inputChoice = async (inputLine, userPath) => {
@@ -32,7 +32,7 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "cp": {
-      console.log('######### "cp" ##########');
+      await copyFile(secondWord, thirdWord)
       break;
     }
     case "mv": {

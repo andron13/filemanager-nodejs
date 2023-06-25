@@ -1,34 +1,42 @@
 import fs from 'fs';
-import path, {dirname, join} from 'path';
-import {fileURLToPath} from "url";
+import path from 'path';
 
-const copyFile = (sourceFolder, targetFolder) => {
-  const fileName = path.basename(sourceFolder);
-  const targetPath = path.join(targetFolder, fileName);
+import {MESSAGES} from "../../helpers/textConstant.js";
+import {normalizePath} from "../../helpers/helpfullFunction.js";
 
-  const readStream = fs.createReadStream(sourceFolder);
-  const writeStream = fs.createWriteStream(targetPath);
+/**
+ * Copies a file using Readable and Writable streams.
+ *
+ * const path_to_file = '/path/to/source/file.txt';
+ * const path_to_new_directory = '/path/to/destination';
+ * copyFile(path_to_file, path_to_new_directory);
+ *
+ * @param {string} pathToFile - The path to the source file.
+ * @param {string} pathToNewDirectory - The path to the new directory where the file should be copied.
+ */
+export const copyFile = (pathToFile, pathToNewDirectory) => {
+  console.log(pathToFile)
+  console.log(pathToNewDirectory)
+  let normalizeSource = normalizePath(pathToFile);
+  let normalizeTarget=normalizePath(pathToNewDirectory);
 
-  readStream.on('error', (error) => {
-    console.error('Failed to read the source file:', error);
+  const fileName = path.basename(normalizeSource);
+  const destination = path.join(normalizeTarget, fileName);
+
+  const readable = fs.createReadStream(normalizeSource);
+  const writable = fs.createWriteStream(destination);
+
+  readable.on('error', (err) => {
+    console.error(MESSAGES.invalid, err);
   });
 
-  writeStream.on('error', (error) => {
-    console.error('Failed to write to the target file:', error);
+  writable.on('error', (err) => {
+    console.error(MESSAGES.invalid, err);
   });
 
-  writeStream.on('finish', () => {
-    console.log('File copied successfully.');
+  readable.pipe(writable);
+
+  readable.on('end', () => {
+    console.log(`File "${pathToFile}" has been successfully copied to "${destination}".`);
   });
-
-  readStream.pipe(writeStream);
-};
-
-// Пример использования функции
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const sourceFile = 'file.txt';
-const targetFile ='newFile.txt';
-const sourceFilePath = join(__dirname, sourceFile);
-const targetDirectoryPath = join(__dirname, targetFile);
-
-copyFile(sourceFilePath, targetDirectoryPath);
+}
