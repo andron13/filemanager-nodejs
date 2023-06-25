@@ -1,4 +1,4 @@
-import {create, read, remove, list, compress, copyFile, moveFile, renameFile}
+import {create, read, remove, list, compress, copyFile, moveFile, renameFile, goUp, cd}
   from "../handlers/modules.js";
 import {MESSAGES} from "./textConstant.js";
 
@@ -14,7 +14,7 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "ls": {
-      await list();
+      await list(process.cwd());
       break;
     }
     case "add": {
@@ -42,11 +42,11 @@ export const inputChoice = async (inputLine, userPath) => {
       break;
     }
     case "up": {
-      console.log('######### up ##########');
+      goUp();
       break;
     }
     case "cd": {
-      console.log('######### cd ##########');
+      await cd(secondWord)
       break;
     }
 
