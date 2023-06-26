@@ -4,11 +4,6 @@ import {MESSAGES} from '../../helpers/textConstant.js';
 import {normalizePath} from "../../helpers/helpfullFunction.js";
 
 /**
- *  * const pathToFile = '/path/to/source/file.txt';
- *  * const pathToNewDirectory = '/path/to/destination';
- *  *
- *  * moveFile(pathToFile, pathToNewDirectory);
- *
  * Moves a file by copying it to a new directory and then deleting the original file.
  * @param {string} pathToFile - The path to the source file.
  * @param {string} pathToNewDirectory - The path to the new directory where the file should be moved.
