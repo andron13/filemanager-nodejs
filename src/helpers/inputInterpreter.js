@@ -71,7 +71,6 @@ export const inputChoice = async (inputLine) => {
       osSwitch(str)
       break;
     default: {
-      console.log('######### default ##########');
       process.stdout.write(MESSAGES.invalid);
       break;
     }

@@ -1,30 +1,20 @@
-import fs from 'fs';
-import zlib from 'zlib';
-import {resolve} from 'path';
-
-import {MESSAGES} from '../../helpers/textConstant.js';
-import {normalizePath} from "../../helpers/helpfullFunction.js";
+import { createReadStream, createWriteStream } from 'fs';
+import { createBrotliCompress } from 'zlib';
 
 /**
- * Compresses a file using the Brotli algorithm and streams API.
- * @param {string} path_to_file - The path to the input file.
- * @param {string} path_to_destination - The path to the output destination.
+ * Compresses a file using Brotli algorithm.
+ * @param {string} pathToFile - The path to the file to be compressed.
+ * @param {string} pathToDestination - The path where the compressed file will be saved.
  */
-export const compress = (path_to_file, path_to_destination) => {
-  const inputPath = resolve(normalizePath(path_to_file));
-  const outputPath = resolve(normalizePath(path_to_destination));
+export const compress = (pathToFile, pathToDestination) => {
+  const readStream = createReadStream(pathToFile);
+  const writeStream = createWriteStream(pathToDestination);
+  const compressStream = createBrotliCompress();
 
-  const readStream = fs.createReadStream(inputPath);
-  const writeStream = fs.createWriteStream(outputPath);
-  const brotliStream = zlib.createBrotliCompress();
+  readStream.on('error', (err) => console.error(`Error reading file: ${err.message}`));
+  writeStream.on('error', (err) => console.error(`Error writing file: ${err.message}`));
+  compressStream.on('error', (err) => console.error(`Error compressing file: ${err.message}`));
 
-  readStream.pipe(brotliStream).pipe(writeStream);
-
-  writeStream.on('finish', () => {
-    console.log('File compressed successfully.');
-  });
-
-  writeStream.on('error', (error) => {
-    console.error(MESSAGES.error, error);
-  });
+  readStream.pipe(compressStream).pipe(writeStream);
+  console.log(`File ${pathToFile} has been compressed to ${pathToDestination}`);
 };

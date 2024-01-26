@@ -1,21 +1,23 @@
-import { cwd } from 'node:process';
+import { dirname } from 'path';
+import {cwd, chdir} from 'node:process';
 import {MESSAGES} from "../../helpers/textConstant.js";
+import {printError, printMessage} from "../../helpers/helpfullFunction.js";
 
 /**
  * Moves up one level from the current directory.
  */
 export const goUp = () => {
   const currentDirectory = cwd();
-  const parentDirectory = currentDirectory.split('/').slice(0, -1).join('/');
+  const parentDirectory = dirname(currentDirectory);
 
   if (currentDirectory === parentDirectory) {
-    console.log('Already in the root folder. Cannot go up.');
+    printMessage('Already in the root folder. Cannot go up.');
     return;
   }
 
   try {
-    process.chdir(parentDirectory);
+    chdir(parentDirectory);
   } catch (err) {
-    console.error(MESSAGES.error);
+    printError(`${MESSAGES.error}: ${err.message}`);
   }
 };

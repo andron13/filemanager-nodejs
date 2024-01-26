@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import {MESSAGES} from '../../helpers/textConstant.js';
-import {fileExists, normalizePath} from "../../helpers/helpfullFunction.js";
+import {fileExists, normalizePath, printError} from "../../helpers/helpfullFunction.js";
 
 /**
  * Renames a file while preserving its content.
@@ -19,11 +19,11 @@ export const renameFile = async (pathToFile, newFilename) => {
   await fileExists(normalizeSource);
   const newFileExists = await fileExists(new_path);
   if (newFileExists) {
-    console.error(MESSAGES.invalid);
+    printError(MESSAGES.invalid);
   }
   try {
     await fs.promises.rename(normalizeSource, new_path);
   } catch (err) {
-    console.error(MESSAGES.error, err);
+    printError(MESSAGES.error, err);
   }
 };

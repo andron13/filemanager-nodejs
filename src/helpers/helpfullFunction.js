@@ -11,3 +11,11 @@ export const fileExists = async (pathToFile) => {
     return false;
   }
 };
+
+export const printMessage = (str) => {
+  process.stdout.write(str + '\n');
+};
+
+export const printError = (errorMessage) => {
+  process.stderr.write(`Error: ${errorMessage}\n`);
+};

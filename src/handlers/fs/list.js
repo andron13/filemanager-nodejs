@@ -1,32 +1,24 @@
-import fs from "fs/promises";
-
+import {promises as fs} from 'fs';
 import {MESSAGES} from "../../helpers/textConstant.js";
+import {printError} from "../../helpers/helpfullFunction.js";
 
 /**
- * Lists all files and directories in the specified folder.
- * @param {string} folderPath - The path to the folder.
+ * Lists all files and directories in the current directory.
  */
-export const list = async (folderPath) => {
+export const list = async () => {
   try {
-    const files = await fs.readdir(folderPath, {withFileTypes: true});
+    const directoryEntries = await fs.readdir(process.cwd(), {withFileTypes: true});
 
-    const fileList = files
-      .map((file) => {
-        const type = file.isDirectory() ? "Directory" : "File";
-        return {Name: file.name, Type: type};
-      })
-      .sort((a, b) => {
-        if (a.Type === "Directory" && b.Type === "File") {
-          return -1;
-        } else if (a.Type === "File" && b.Type === "Directory") {
-          return 1;
-        } else {
-          return a.Name.localeCompare(b.Name);
-        }
-      });
+    const fileList = directoryEntries.map((directoryEntry) => {
+      return {
+        Type: directoryEntry.isDirectory() ? 'Directory' : 'File',
+        Name: directoryEntry.name
+      };
+    });
 
     console.table(fileList);
-  } catch (err) {
-    console.error(MESSAGES.error);
+  } catch (error) {
+    printError(MESSAGES.error);
+    printError('An error occurred while listing the directory: ', error);
   }
 };

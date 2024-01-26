@@ -1,30 +1,20 @@
-import fs from 'fs';
-import zlib from 'zlib';
-import { resolve } from 'path';
-
-import {MESSAGES} from '../../helpers/textConstant.js';
-import {normalizePath} from "../../helpers/helpfullFunction.js";
+import { createReadStream, createWriteStream } from 'fs';
+import { createBrotliDecompress } from 'zlib';
 
 /**
- * Decompresses a file using the Brotli algorithm and streams API.
- * @param {string} path_to_file - The path to the input compressed file.
- * @param {string} path_to_destination - The path to the output destination for the decompressed file.
+ * Decompresses a file using Brotli algorithm.
+ * @param {string} pathToFile - The path to the file to be decompressed.
+ * @param {string} pathToDestination - The path where the decompressed file will be saved.
  */
-export const decompress = (path_to_file, path_to_destination) => {
-  const inputPath = resolve(normalizePath(path_to_file));
-  const outputPath = resolve(normalizePath(path_to_destination));
+export const decompress = (pathToFile, pathToDestination) => {
+  const readStream = createReadStream(pathToFile);
+  const writeStream = createWriteStream(pathToDestination);
+  const decompressStream = createBrotliDecompress();
 
-  const readStream = fs.createReadStream(inputPath);
-  const writeStream = fs.createWriteStream(outputPath);
-  const brotliStream = zlib.createBrotliDecompress();
+  readStream.on('error', err => console.error(`Error reading file: ${err.message}`));
+  writeStream.on('error', err => console.error(`Error writing file: ${err.message}`));
+  decompressStream.on('error', err => console.error(`Error decompressing file: ${err.message}`));
 
-  readStream.pipe(brotliStream).pipe(writeStream);
-
-  writeStream.on('finish', () => {
-    console.log('File decompressed successfully.');
-  });
-
-  writeStream.on('error', (error) => {
-    console.error(MESSAGES.error, error);
-  });
+  readStream.pipe(decompressStream).pipe(writeStream);
+  console.log(`File ${pathToFile} has been decompressed to ${pathToDestination}`);
 };

@@ -1,39 +1,48 @@
 import fs from 'fs/promises';
+import os from 'os';
 import {cwd, chdir} from 'node:process';
-import {resolve} from 'path';
+import {resolve, normalize} from 'path';
 
 import {MESSAGES} from '../../helpers/textConstant.js';
-import {normalizePath} from "../../helpers/helpfullFunction.js";
+import {printError} from "../../helpers/helpfullFunction.js";
 
 /**
- * Changes the current working directory to the specified directory.
- * @param {string} pathToDirectory - The path to the target directory.
+ * Checks if the specified path exists and returns canonical path.
+ * @param {string} path - The path to check.
+ * @returns {Promise<string>} - A Promise that resolves to the canonical path if it exists, or rejects if it does not.
  */
-export const cd = async (pathToDirectory) => {
-  const currentPath = cwd();
-  const targetPath = resolve(currentPath, normalizePath(pathToDirectory));
-
-  if (!pathExists(targetPath)) {
-    console.error(MESSAGES.invalid);
-  }
-
+const getCanonicalPath = async (path) => {
   try {
-    await chdir(targetPath);
+    await fs.access(path);
+    return fs.realpath(path);
   } catch (err) {
-    console.error(MESSAGES.error);
+    throw Error(err);
   }
 };
 
 /**
- * Checks if the specified path exists.
- * @param {string} path - The path to check.
- * @returns {boolean} - True if the path exists, false otherwise.
+ * Changes the current working directory to the specified directory.
+ * @param {string} pathToDirectory - The path to the target directory.
+ * @returns {Promise<void>} A promise that resolves when the directory has been changed successfully. Returns undefined if the path does not exist or if it is unable to change directories.
  */
-const pathExists = async (path) => {
+export const cd = async (pathToDirectory) => {
+  if (pathToDirectory === '~') {
+    pathToDirectory = os.homedir();
+  }
+
+  const targetPath = resolve(cwd(), normalize(pathToDirectory));
+  let canonicalPath;
+
   try {
-    await fs.access(path);
-    return true;
+    canonicalPath = await getCanonicalPath(targetPath);
   } catch (err) {
-    return false;
+    printError(MESSAGES.invalid);
+    return;
+  }
+
+  try {
+    chdir(canonicalPath);
+  } catch (err) {
+    printError(MESSAGES.error);
   }
 };
