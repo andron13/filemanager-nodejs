@@ -4,6 +4,9 @@
   "description": "NodeJS File manager student project",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "start": "node index.js",
     "test": "node index.js -- --username=Admin"
