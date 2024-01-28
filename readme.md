@@ -62,10 +62,3 @@ npm run start -- --username=your_username
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to modify and use it according to your needs.
-
-
-
-
-
-
-

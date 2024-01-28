@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import {printMessage} from "../../helpers/helpfullFunction.js";
 
 export const moveFile = (pathToFile, pathToNewDirectory) => {
   const baseFileName = path.basename(pathToFile);
@@ -12,10 +11,10 @@ export const moveFile = (pathToFile, pathToNewDirectory) => {
     readStream.on('error', reject);
     writeStream.on('error', reject);
     writeStream.on('finish', () => {
-      fs.unlink(pathToFile, err => {
+      fs.unlink(pathToFile, (err) => {
         if (err) reject(err);
         else {
-          printMessage(`Файл успешно перемещён с ${pathToFile} в ${destPath}`);
+          // printMessage(`File successfully moved from ${pathToFile} to ${destPath}`);
           resolve();
         }
       });

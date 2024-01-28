@@ -1,5 +1,5 @@
-import fs from "fs";
-import {normalize} from "path";
+import fs from 'fs';
+import { normalize } from 'path';
 
 export let normalizePath = (inputPath) => normalize(inputPath.trim());
 

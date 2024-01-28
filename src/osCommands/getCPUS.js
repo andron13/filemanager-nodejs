@@ -1,5 +1,5 @@
-import os from "node:os";
-import {printMessage} from "../helpers/helpfullFunction.js";
+import os from 'node:os';
+import { printMessage } from '../helpers/helpfullFunction.js';
 
 /**
  * Retrieves and displays information about the host machine's CPUs.
@@ -16,12 +16,12 @@ export const getCPUsInfo = () => {
     const cpuData = {
       CPU: `CPU ${index + 1}`,
       Model: model,
-      'Clock Rate (GHz)': `${clockRateGHz} GHz`
+      'Clock Rate (GHz)': `${clockRateGHz} GHz`,
     };
 
     cpuInfo.push(cpuData);
   });
 
-  printMessage(`Overall amount of CPUs: ${totalCPUs}\n`);
+  console.log(`Overall amount of CPUs: ${totalCPUs}\n`);
   console.table(cpuInfo);
 };

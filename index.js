@@ -1,11 +1,11 @@
 import os from 'os';
-import * as readline from "readline";
+import * as readline from 'readline';
 import { cwd } from 'node:process';
 
 process.chdir(os.homedir());
 
-import {MESSAGES} from "./src/helpers/textConstant.js";
-import {inputChoice} from "./src/helpers/inputInterpreter.js";
+import { MESSAGES } from './src/helpers/textConstant.js';
+import { inputChoice } from './src/helpers/inputInterpreter.js';
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,
@@ -13,16 +13,17 @@ const readlineInterface = readline.createInterface({
   terminal: false,
 });
 
-let username = "Anonymous";
+let username = 'Anonymous';
 process.argv.forEach((item) => {
-  if (item.startsWith("--username=")) {
-    username = item.split("=")[1];
+  if (item.startsWith('--username=')) {
+    username = item.split('=')[1];
   }
 });
 
-readlineInterface.input.setEncoding("utf-8");
+readlineInterface.input.setEncoding('utf-8');
 readlineInterface.output.write(MESSAGES.welcome(username));
 readlineInterface.output.write(MESSAGES.currentPath(cwd()));
+readlineInterface.output.write(MESSAGES.waitForCommands(username));
 
 process.on('exit', () => {
   process.stdout.write(MESSAGES.goodbye(username));
@@ -32,6 +33,7 @@ process.on('SIGINT', function () {
 });
 
 readlineInterface.on('line', async (line) => {
-  await inputChoice(line)
+  await inputChoice(line);
   readlineInterface.output.write(MESSAGES.currentPath(cwd()));
+  readlineInterface.output.write(MESSAGES.waitForCommands(username));
 });

@@ -1,6 +1,5 @@
-import {promises as fs} from 'fs';
-import {MESSAGES} from "../../helpers/textConstant.js";
-import {printError, printMessage} from "../../helpers/helpfullFunction.js";
+import { promises as fs } from 'fs';
+import { MESSAGES } from '../../helpers/textConstant.js';
 
 /**
  * Removes the specified file.
@@ -9,9 +8,9 @@ import {printError, printMessage} from "../../helpers/helpfullFunction.js";
 export const remove = async (file) => {
   try {
     await fs.unlink(file);
-    printMessage(`File ${file} was deleted successfully`);
+    // console.log(`File ${file} was deleted successfully`);
   } catch (error) {
-    printError(MESSAGES.error);
-    printError(`Error deleting file ${file}: `, error.message);
+    console.error(MESSAGES.error);
+    // console.error(`Error deleting file ${file}: `, error.message);
   }
 };

@@ -1,6 +1,5 @@
 import fs from 'fs';
-import {MESSAGES} from "../../helpers/textConstant.js";
-import {printError} from "../../helpers/helpfullFunction.js";
+import { MESSAGES } from '../../helpers/textConstant.js';
 
 /**
  * Creates a new file in the current working directory.
@@ -10,8 +9,8 @@ export const create = (file) => {
   const writeStream = fs.createWriteStream(file, { flags: 'wx' });
 
   writeStream.on('error', (error) => {
-    printError(`${MESSAGES.invalid}, ${error}`)
-    printError(`Error creating file: ${error.message}`);
+    console.error(`${MESSAGES.invalid}, ${error}`);
+    // console.log(`Error creating file: ${error.message}`);
   });
 
   writeStream.end();

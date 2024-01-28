@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import {MESSAGES} from "../../helpers/textConstant.js";
-import {normalizePath, printError, printMessage} from "../../helpers/helpfullFunction.js";
+import { MESSAGES } from '../../helpers/textConstant.js';
+import { normalizePath } from '../../helpers/helpfullFunction.js';
 
 /**
  * Copies a file using Readable and Writable streams and returns a promise.
@@ -28,21 +28,20 @@ export const copyFile = async (pathToFile, pathToNewDirectory) => {
     const writable = fs.createWriteStream(destination);
 
     readable.on('error', (err) => {
-      printError(`${MESSAGES.invalid}, ${err}`)
+      console.error(`${MESSAGES.invalid}, ${err}`);
       reject(err);
     });
 
     writable.on('error', (err) => {
-      printError(`${MESSAGES.invalid}, ${err}`)
+      console.error(`${MESSAGES.invalid}, ${err}`);
       reject(err);
     });
 
     readable.pipe(writable);
 
     readable.on('end', () => {
-      printMessage(`File "${pathToFile}" has been successfully copied to "${destination}".`);
+      console.log(`File "${pathToFile}" has been successfully copied to "${destination}".`);
       resolve();
     });
   });
-}
-
+};

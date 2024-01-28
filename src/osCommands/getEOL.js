@@ -1,4 +1,4 @@
-import os from "node:os";
+import os from 'node:os';
 
 /**
  * Retrieves the default system End-Of-Line (EOL) using the `os.EOL` property

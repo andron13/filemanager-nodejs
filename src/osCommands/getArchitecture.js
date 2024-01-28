@@ -1,4 +1,4 @@
-import {printMessage} from "../helpers/helpfullFunction.js";
+import { printMessage } from '../helpers/helpfullFunction.js';
 
 /**
  * Retrieves the CPU architecture for which the Node.js binary has been compiled
@@ -6,5 +6,5 @@ import {printMessage} from "../helpers/helpfullFunction.js";
  */
 export const getArchitecture = () => {
   const architecture = process.arch;
-  printMessage("Architecture:", architecture);
+  console.log('Architecture:', architecture);
 };

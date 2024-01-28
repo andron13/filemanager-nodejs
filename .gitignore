@@ -1,4 +1,6 @@
 .idea
+.prettierrc.json
+node_modules
 #.gitignore
 #.nvm-version
 #.editorconfig

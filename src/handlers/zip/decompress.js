@@ -11,9 +11,9 @@ export const decompress = (pathToFile, pathToDestination) => {
   const writeStream = createWriteStream(pathToDestination);
   const decompressStream = createBrotliDecompress();
 
-  readStream.on('error', err => console.error(`Error reading file: ${err.message}`));
-  writeStream.on('error', err => console.error(`Error writing file: ${err.message}`));
-  decompressStream.on('error', err => console.error(`Error decompressing file: ${err.message}`));
+  readStream.on('error', (err) => console.error(`Error reading file: ${err.message}`));
+  writeStream.on('error', (err) => console.error(`Error writing file: ${err.message}`));
+  decompressStream.on('error', (err) => console.error(`Error decompressing file: ${err.message}`));
 
   readStream.pipe(decompressStream).pipe(writeStream);
   console.log(`File ${pathToFile} has been decompressed to ${pathToDestination}`);

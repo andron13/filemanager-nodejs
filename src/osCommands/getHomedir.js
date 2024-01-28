@@ -1,5 +1,5 @@
-import os from "node:os";
-import {printMessage} from "../helpers/helpfullFunction.js";
+import os from 'node:os';
+import { printMessage } from '../helpers/helpfullFunction.js';
 
 /**
  * Retrieves the home directory path using the `os.homedir()` method
@@ -7,5 +7,5 @@ import {printMessage} from "../helpers/helpfullFunction.js";
  */
 export const getHomeDir = () => {
   const homeDirectory = os.homedir();
-  printMessage("Home Directory:", homeDirectory);
+  console.log('Home Directory:', homeDirectory);
 };
