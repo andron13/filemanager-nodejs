@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { MESSAGES } from '../../helpers';
+import { MESSAGES } from '../../helpers/index.js';
 
 /**
  * Removes the specified file.

@@ -5,6 +5,5 @@ import os from 'node:os';
  * and prints it to the console.
  */
 export const getUserName = () => {
-  const username = os.userInfo().username;
-  console.log('Username:', username);
+  return os.userInfo().username;
 };

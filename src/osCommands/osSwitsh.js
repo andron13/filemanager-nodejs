@@ -1,5 +1,5 @@
-import { getArchitecture, getCPUsInfo, getEOL, printHomeDir, getUserName } from './';
-import { MESSAGES } from '../helpers';
+import { getArchitecture, getCPUsInfo, getEOL, getUserName, getHomeDir } from './index.js';
+import { MESSAGES } from '../helpers/index.js';
 
 /**
  * Operating System command handler.
@@ -27,13 +27,13 @@ export const osSwitch = (input) => {
       getCPUsInfo();
       break;
     case 'homedir':
-      printHomeDir();
+      console.log('Home Directory:', getHomeDir());
       break;
     case 'username':
-      getUserName();
+      console.log('Username:', getUserName());
       break;
     case 'architecture':
-      getArchitecture();
+      console.log('Architecture:', getArchitecture());
       break;
     default: {
       process.stdout.write(MESSAGES.invalid);

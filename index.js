@@ -1,8 +1,8 @@
 import * as readline from 'readline';
 import { cwd } from 'node:process';
 
-import { MESSAGES, inputChoice } from './src/helpers';
-import { getHomeDir } from './src/osCommands';
+import { MESSAGES, inputChoice } from './src/helpers/index.js';
+import { getHomeDir } from './src/osCommands/index.js';
 
 process.chdir(getHomeDir());
 

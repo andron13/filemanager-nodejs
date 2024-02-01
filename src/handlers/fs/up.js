@@ -1,6 +1,6 @@
 import { dirname } from 'path';
 import { cwd, chdir } from 'node:process';
-import { MESSAGES } from '../../helpers';
+import { MESSAGES } from '../../helpers/index.js';
 
 /**
  * Moves up one level from the current directory.

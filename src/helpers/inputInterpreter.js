@@ -1,8 +1,8 @@
-import { list, compress, goUp, cd, calculateHash, decompress } from '../handlers';
-import { copy, create, move, read, remove, rename } from '../handlers/crud/';
+import { list, compress, goUp, cd, calculateHash, decompress } from '../handlers/index.js';
+import { copy, create, move, read, remove, rename } from '../handlers/crud/index.js';
 
 import { MESSAGES } from './textConstant.js';
-import { osSwitch } from '../osCommands';
+import { osSwitch } from '../osCommands/index.js';
 
 /**
  * Handler for input command choice.

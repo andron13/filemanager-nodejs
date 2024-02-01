@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { fileExists, normalizePath, MESSAGES } from '../../helpers';
+import { fileExists, normalizePath, MESSAGES } from '../../helpers/index.js';
 
 /**
  * Renames a file while preserving its content.

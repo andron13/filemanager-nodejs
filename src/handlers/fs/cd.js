@@ -2,8 +2,8 @@ import fs from 'fs/promises';
 import { cwd, chdir } from 'node:process';
 import { resolve, normalize } from 'path';
 
-import { MESSAGES } from '../../helpers';
-import { getHomeDir } from '../../osCommands';
+import { MESSAGES } from '../../helpers/index.js';
+import { getHomeDir } from '../../osCommands/index.js';
 
 /**
  * Checks if the specified path exists and returns canonical path.

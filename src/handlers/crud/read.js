@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { normalize } from 'path';
 
-import { MESSAGES } from '../../helpers';
+import { MESSAGES } from '../../helpers/index.js';
 
 /**
  * Reads a file and outputs its content to the console using a Readable stream.

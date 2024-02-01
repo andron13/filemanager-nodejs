@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { MESSAGES } from '../../helpers';
+import { MESSAGES } from '../../helpers/index.js';
 
 /**
  * Creates a new file in the current working directory.

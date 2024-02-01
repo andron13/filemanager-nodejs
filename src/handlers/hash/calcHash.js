@@ -1,7 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 
-import { fileExists, normalizePath, MESSAGES } from '../../helpers';
+import { fileExists, normalizePath, MESSAGES } from '../../helpers/index.js';
 
 /**
  * Calculates the hash for the specified file and prints it to the console.

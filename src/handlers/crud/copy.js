@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { MESSAGES, normalizePath } from '../../helpers';
+import { MESSAGES, normalizePath } from '../../helpers/index.js';
 
 /**
  * Copies a file using Readable and Writable streams and returns a promise.

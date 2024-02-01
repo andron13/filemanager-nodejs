@@ -7,7 +7,3 @@ import os from 'node:os';
 export const getHomeDir = () => {
   return os.homedir();
 };
-
-export const printHomeDir = () => {
-  console.log('Home Directory:', getHomeDir());
-};
