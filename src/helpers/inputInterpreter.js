@@ -1,20 +1,8 @@
-import {
-  create,
-  read,
-  remove,
-  list,
-  compress,
-  copyFile,
-  moveFile,
-  renameFile,
-  goUp,
-  cd,
-  calculateHash,
-  decompress,
-} from '../handlers/modules.js';
+import { list, compress, goUp, cd, calculateHash, decompress } from '../handlers';
+import { copy, create, move, read, remove, rename } from '../handlers/crud/';
 
 import { MESSAGES } from './textConstant.js';
-import { osSwitch } from '../osCommands/osSwitsh.js';
+import { osSwitch } from '../osCommands';
 
 /**
  * Handler for input command choice.
@@ -48,15 +36,15 @@ export const inputChoice = async (inputLine) => {
       break;
     }
     case 'cp': {
-      await copyFile(secondWord, thirdWord);
+      await copy(secondWord, thirdWord);
       break;
     }
     case 'mv': {
-      await moveFile(secondWord, thirdWord);
+      await move(secondWord, thirdWord);
       break;
     }
     case 'rn': {
-      await renameFile(secondWord, thirdWord);
+      await rename(secondWord, thirdWord);
       break;
     }
     case 'up': {

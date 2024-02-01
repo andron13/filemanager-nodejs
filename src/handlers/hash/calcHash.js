@@ -1,13 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 
-import { MESSAGES } from '../../helpers/textConstant.js';
-import {
-  fileExists,
-  normalizePath,
-  printError,
-  printMessage,
-} from '../../helpers/helpfullFunction.js';
+import { fileExists, normalizePath, MESSAGES } from '../../helpers';
 
 /**
  * Calculates the hash for the specified file and prints it to the console.

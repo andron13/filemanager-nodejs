@@ -1,9 +1,9 @@
 import fs from 'fs/promises';
-import os from 'os';
 import { cwd, chdir } from 'node:process';
 import { resolve, normalize } from 'path';
 
-import { MESSAGES } from '../../helpers/textConstant.js';
+import { MESSAGES } from '../../helpers';
+import { getHomeDir } from '../../osCommands';
 
 /**
  * Checks if the specified path exists and returns canonical path.
@@ -26,7 +26,7 @@ const getCanonicalPath = async (path = '.') => {
  */
 export const cd = async (pathToDirectory = '.') => {
   if (pathToDirectory === '~') {
-    pathToDirectory = os.homedir();
+    pathToDirectory = getHomeDir();
   }
 
   const targetPath = resolve(cwd(), normalize(pathToDirectory));

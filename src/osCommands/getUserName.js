@@ -1,5 +1,4 @@
 import os from 'node:os';
-import { printMessage } from '../helpers/helpfullFunction.js';
 
 /**
  * Retrieves the current system username using the `os.userInfo().username` method

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-export const moveFile = (pathToFile, pathToNewDirectory) => {
+export const move = (pathToFile, pathToNewDirectory) => {
   const baseFileName = path.basename(pathToFile);
   const destPath = path.join(pathToNewDirectory, baseFileName);
   const readStream = fs.createReadStream(pathToFile);

@@ -1,11 +1,10 @@
-import os from 'os';
 import * as readline from 'readline';
 import { cwd } from 'node:process';
 
-process.chdir(os.homedir());
+import { MESSAGES, inputChoice } from './src/helpers';
+import { getHomeDir } from './src/osCommands';
 
-import { MESSAGES } from './src/helpers/textConstant.js';
-import { inputChoice } from './src/helpers/inputInterpreter.js';
+process.chdir(getHomeDir());
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,

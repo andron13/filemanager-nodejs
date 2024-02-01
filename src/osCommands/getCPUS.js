@@ -1,5 +1,4 @@
 import os from 'node:os';
-import { printMessage } from '../helpers/helpfullFunction.js';
 
 /**
  * Retrieves and displays information about the host machine's CPUs.

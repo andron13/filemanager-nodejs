@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { MESSAGES } from '../../helpers/textConstant.js';
+import { MESSAGES } from '../../helpers';
 
 /**
  * Removes the specified file.

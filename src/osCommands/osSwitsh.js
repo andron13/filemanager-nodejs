@@ -1,6 +1,5 @@
-import { getArchitecture, getCPUsInfo, getEOL, getHomeDir, getUserName } from './osModules.js';
-import { MESSAGES } from '../helpers/textConstant.js';
-import { printError } from '../helpers/helpfullFunction.js';
+import { getArchitecture, getCPUsInfo, getEOL, printHomeDir, getUserName } from './';
+import { MESSAGES } from '../helpers';
 
 /**
  * Operating System command handler.
@@ -8,13 +7,13 @@ import { printError } from '../helpers/helpfullFunction.js';
  */
 export const osSwitch = (input) => {
   if (!input) {
-    printError(MESSAGES.invalid);
+    console.log(MESSAGES.invalid);
     return;
   }
   let filtered = input.split(' ').filter((item) => item.includes('--'));
 
   if (filtered.length === 0) {
-    printError(MESSAGES.invalid);
+    console.log(MESSAGES.invalid);
     return;
   }
 
@@ -28,7 +27,7 @@ export const osSwitch = (input) => {
       getCPUsInfo();
       break;
     case 'homedir':
-      getHomeDir();
+      printHomeDir();
       break;
     case 'username':
       getUserName();

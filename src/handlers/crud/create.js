@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { MESSAGES } from '../../helpers/textConstant.js';
+import { MESSAGES } from '../../helpers';
 
 /**
  * Creates a new file in the current working directory.

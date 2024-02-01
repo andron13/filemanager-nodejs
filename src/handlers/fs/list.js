@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import { MESSAGES } from '../../helpers/textConstant.js';
+import { MESSAGES } from '../../helpers';
 
 /**
  * Lists all files and directories in the current directory.

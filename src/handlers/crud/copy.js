@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { MESSAGES } from '../../helpers/textConstant.js';
-import { normalizePath } from '../../helpers/helpfullFunction.js';
+import { MESSAGES, normalizePath } from '../../helpers';
 
 /**
  * Copies a file using Readable and Writable streams and returns a promise.
@@ -16,7 +15,7 @@ import { normalizePath } from '../../helpers/helpfullFunction.js';
  *
  * @returns {Promise<void>} A promise that resolves when the file has been copied successfully.
  */
-export const copyFile = async (pathToFile, pathToNewDirectory) => {
+export const copy = async (pathToFile, pathToNewDirectory) => {
   return new Promise((resolve, reject) => {
     let normalizeSource = normalizePath(pathToFile);
     let normalizeTarget = normalizePath(pathToNewDirectory);

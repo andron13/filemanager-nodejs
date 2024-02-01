@@ -1,15 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
-import { MESSAGES } from '../../helpers/textConstant.js';
-import { fileExists, normalizePath } from '../../helpers/helpfullFunction.js';
+import { fileExists, normalizePath, MESSAGES } from '../../helpers';
 
 /**
  * Renames a file while preserving its content.
  * @param {string} pathToFile - The path to the file to be renamed.
  * @param {string} newFilename - The new filename.
  */
-export const renameFile = async (pathToFile, newFilename) => {
+export const rename = async (pathToFile, newFilename) => {
   if (!pathToFile || !newFilename) {
     console.error(MESSAGES.invalid);
     return;
