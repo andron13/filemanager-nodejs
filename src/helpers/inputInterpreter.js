@@ -9,12 +9,24 @@ import { osSwitch } from '../osCommands/index.js';
  * @param {string} inputLine - Input line with the command.
  */
 export const inputChoice = async (inputLine) => {
-  let str = inputLine.trim();
-  let firstWord = str.split(' ')[0].toLowerCase();
-  let secondWord = str.split(' ')[1];
-  let thirdWord = str.split(' ')[2];
+  const inputArray = getInputArray(inputLine);
 
-  switch (firstWord) {
+  if (oneArgsCommands.some((el) => el === inputArray[0]) && inputArray.length > 1) {
+    aLotOfArguments(inputArray[0]);
+  }
+
+  if (twoArgsCommands.some((el) => el === inputArray[0]) && inputArray.length !== 2) {
+    aLotOfArguments(inputArray[0]);
+  }
+  if (threeArgsCommands.some((el) => el === inputArray[0]) && inputArray.length !== 3) {
+    aLotOfArguments(inputArray[0]);
+  }
+
+  switch (inputArray[0]) {
+    case 'up': {
+      goUp();
+      break;
+    }
     case '.exit': {
       process.exit();
       break;
@@ -24,54 +36,73 @@ export const inputChoice = async (inputLine) => {
       break;
     }
     case 'add': {
-      await create(secondWord);
+      await create(inputArray[1]);
       break;
     }
     case 'cat': {
-      await read(secondWord);
+      await read(inputArray[1]);
       break;
     }
     case 'rm': {
-      await remove(secondWord);
-      break;
-    }
-    case 'cp': {
-      await copy(secondWord, thirdWord);
-      break;
-    }
-    case 'mv': {
-      await move(secondWord, thirdWord);
-      break;
-    }
-    case 'rn': {
-      await rename(secondWord, thirdWord);
-      break;
-    }
-    case 'up': {
-      goUp();
+      await remove(inputArray[1]);
       break;
     }
     case 'cd': {
-      await cd(secondWord);
+      await cd(inputArray[1]);
       break;
     }
     case 'hash':
-      await calculateHash(secondWord);
+      await calculateHash(inputArray[1]);
       break;
+    case 'cp': {
+      await copy(inputArray[1], inputArray[2]);
+      break;
+    }
+    case 'mv': {
+      await move(inputArray[1], inputArray[2]);
+      break;
+    }
+    case 'rn': {
+      await rename(inputArray[1], inputArray[2]);
+      break;
+    }
     case 'decompress': {
-      decompress(secondWord, thirdWord);
+      decompress(inputArray[1], inputArray[2]);
       break;
     }
     case 'compress': {
-      await compress(secondWord, thirdWord);
+      await compress(inputArray[1], inputArray[2]);
       break;
     }
     case 'os':
-      osSwitch(str);
+      osSwitch(inputArray);
       break;
     default: {
       process.stdout.write(MESSAGES.invalid);
       break;
     }
   }
+};
+
+function getInputArray(inputLine) {
+  // магия регулярок
+  let args = inputLine.match(/(?<=\s|^)[^'\s"][^"\s]*(?=\s|$)|"(.*?)"|'(.*?)'/g);
+  // удаляем кавычки вокруг аргументов, если они есть
+  args = args.map((arg) =>
+    (arg.startsWith(`"`) && arg.endsWith(`"`)) || (arg.startsWith(`'`) && arg.endsWith(`'`))
+      ? arg.slice(1, -1)
+      : arg,
+  );
+  // отфильтровываем пустышки
+  return args.filter((e) => e !== '');
+}
+
+const oneArgsCommands = ['up', '.exit', 'ls'];
+const twoArgsCommands = ['add', 'cat', 'rm', 'cd', 'hash', 'os'];
+const threeArgsCommands = ['cp', 'mv', 'rn', 'decompress', 'compress'];
+
+const aLotOfArguments = (command) => {
+  console.log('a Lot Of Arguments for: ', command);
+  console.log(MESSAGES.invalid);
+  return;
 };

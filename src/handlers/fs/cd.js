@@ -6,7 +6,7 @@ import { MESSAGES } from '../../helpers/index.js';
 import { getHomeDir } from '../../osCommands/index.js';
 
 /**
- * Checks if the specified path exists and returns canonical path.
+ * Checks if the specified path exists and returns a canonical path.
  * @param {string} path - The path to check.
  * @returns {Promise<string>} - A Promise that resolves to the canonical path if it exists, or rejects if it does not.
  */

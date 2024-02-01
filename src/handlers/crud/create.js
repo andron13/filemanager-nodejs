@@ -10,7 +10,7 @@ export const create = (file) => {
 
   writeStream.on('error', (error) => {
     console.error(`${MESSAGES.invalid}, ${error}`);
-    // console.log(`Error creating file: ${error.message}`);
+    console.log(`Error creating file: ${error.message}`);
   });
 
   writeStream.end();

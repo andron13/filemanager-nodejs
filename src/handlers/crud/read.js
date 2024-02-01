@@ -18,7 +18,7 @@ export const read = async (file) => {
   readableStream.on('error', (err) => {
     console.error(`${MESSAGES.error}, ${err.message}`);
   });
-  // readableStream.on('end', () => {
-  //   printMessage(`\nFile reading is completed.`);
-  // });
+  readableStream.on('end', () => {
+    console.error(`\nFile reading is completed.`);
+  });
 };

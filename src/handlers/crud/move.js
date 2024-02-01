@@ -14,7 +14,7 @@ export const move = (pathToFile, pathToNewDirectory) => {
       fs.unlink(pathToFile, (err) => {
         if (err) reject(err);
         else {
-          // printMessage(`File successfully moved from ${pathToFile} to ${destPath}`);
+          console.log(`File successfully moved from ${pathToFile} to ${destPath}`);
           resolve();
         }
       });

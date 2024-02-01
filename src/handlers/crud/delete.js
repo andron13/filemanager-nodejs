@@ -8,9 +8,9 @@ import { MESSAGES } from '../../helpers/index.js';
 export const remove = async (file) => {
   try {
     await fs.unlink(file);
-    // console.log(`File ${file} was deleted successfully`);
+    console.log(`File ${file} was deleted successfully`);
   } catch (error) {
     console.error(MESSAGES.error);
-    // console.error(`Error deleting file ${file}: `, error.message);
+    console.error(`Error deleting file ${file}: `, error.message);
   }
 };

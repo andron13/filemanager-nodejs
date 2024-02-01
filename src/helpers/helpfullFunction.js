@@ -1,7 +1,10 @@
 import fs from 'fs';
-import { normalize } from 'path';
+import {dirname, normalize} from 'path';
+import {fileURLToPath} from 'url';
 
 export let normalizePath = (inputPath) => normalize(inputPath.trim());
+
+export const getRoot = () => dirname(fileURLToPath(import.meta.url));
 
 export const fileExists = async (pathToFile) => {
   try {

@@ -6,18 +6,7 @@ import { MESSAGES } from '../helpers/index.js';
  * @param {string} input - Input string with the command.
  */
 export const osSwitch = (input) => {
-  if (!input) {
-    console.log(MESSAGES.invalid);
-    return;
-  }
-  let filtered = input.split(' ').filter((item) => item.includes('--'));
-
-  if (filtered.length === 0) {
-    console.log(MESSAGES.invalid);
-    return;
-  }
-
-  let parameter = filtered[0].slice(2).toLowerCase();
+  let parameter = input[1].slice(2).toLowerCase();
 
   switch (parameter) {
     case 'eol':
