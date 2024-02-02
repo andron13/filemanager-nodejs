@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test:start": "node index.js -- --username=Admin",
-    "format": "prettier --write ."
+    "test:start": "node index.js -- --username=Admin"
   },
   "keywords": [
     "filemanager",

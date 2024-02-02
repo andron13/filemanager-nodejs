@@ -26,6 +26,6 @@ export const rename = async (pathToFile, newFilename) => {
   try {
     await fs.promises.rename(normalizeSource, new_path);
   } catch (err) {
-    console.error(MESSAGES.error, err);
+    console.error(MESSAGES.error);
   }
 };

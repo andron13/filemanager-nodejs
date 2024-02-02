@@ -26,15 +26,13 @@ export const copy = async (pathToFile, pathToNewDirectory) => {
     const readable = fs.createReadStream(normalizeSource);
     const writable = fs.createWriteStream(destination);
 
-    readable.on('error', (err) => {
-      console.error(`${MESSAGES.invalid}, ${err}`);
+    const errorHandler = (err) => {
+      console.log(MESSAGES.invalid);
       reject(err);
-    });
+    };
 
-    writable.on('error', (err) => {
-      console.error(`${MESSAGES.invalid}, ${err}`);
-      reject(err);
-    });
+    readable.on('error', errorHandler);
+    writable.on('error', errorHandler);
 
     readable.pipe(writable);
 

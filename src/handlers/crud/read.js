@@ -5,20 +5,37 @@ import { MESSAGES } from '../../helpers/index.js';
 
 /**
  * Reads a file and outputs its content to the console using a Readable stream.
- * @param {string} file - The name of the file to read.
+ *
+ * @example
+ * read('/path/to/file.txt')
+ *
+ * @async
+ * @function read
+ * @param {string} file - The path to the file to be read.
+ * @returns {Promise<void>} A promise that resolves when the file has been successfully read.
+ *
+ * @throws Will display an error message if reading the file fails.
  */
-export const read = async (file) => {
+export const read = (file) => {
   let normalizeFile = normalize(file);
   const readableStream = fs.createReadStream(normalizeFile);
 
-  readableStream.on('data', (chunk) => {
-    process.stdout.write(chunk);
-  });
+  return new Promise((resolve, reject) => {
+    readableStream.on('data', (chunk) => {
+      process.stdout.write(chunk);
+    });
 
-  readableStream.on('error', (err) => {
-    console.error(`${MESSAGES.error}, ${err.message}`);
-  });
-  readableStream.on('end', () => {
-    console.error(`\nFile reading is completed.`);
+    const errorHandler = (err) => {
+      console.log(MESSAGES.invalid);
+      reject(err);
+    };
+    readableStream.on('error', errorHandler);
+
+    readableStream.on('end', () => {
+      console.info(`\nFile reading is completed.`);
+      resolve();
+    });
+  }).catch(() => {
+    console.log(MESSAGES.error);
   });
 };

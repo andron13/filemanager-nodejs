@@ -1,6 +1,6 @@
 import fs from 'fs';
-import {dirname, normalize} from 'path';
-import {fileURLToPath} from 'url';
+import { dirname, normalize } from 'path';
+import { fileURLToPath } from 'url';
 
 export let normalizePath = (inputPath) => normalize(inputPath.trim());
 
